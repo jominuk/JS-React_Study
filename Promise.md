@@ -48,3 +48,17 @@ function getData() {
 
 getData().catch((err) => console.log(err));
 ```
+
+## then(), catch()
+
+- then()은 작업이 성공적으로 완료되었을 때 호출, catch()는 작업이 실패하였을 때 호출
+
+```javascript
+promise
+  .then((result) => {
+    // 작업이 성공적으로 완료되었을 때 처리할 작업
+  })
+  .catch((error) => {
+    // 작업이 실패하였을 때 처리할 작업
+  });
+```
