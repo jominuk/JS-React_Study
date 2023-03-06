@@ -1,16 +1,94 @@
-- var, let, const는 JS에서 변수를 선언하는 세가지 방법입니다.
+### var, let, const는 JS에서 변수를 선언하는 세가지 방법입니다.
+
+## TDZ
+
+- TDZ(Temporal Dead Zone)는 해석하면 " 일시적 사각지대 "
+- 변수가 선언되고 변수의 초기화가 이루어지기 전까지의 구간
+
+![IMG_0097](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdAUOcV%2FbtrlerbSm1G%2F95zpe8AgZWXj71QfWxSBJk%2Fimg.jpg)
+
+## TDZ의 영향을 받는 구문
+
+1. const 변수
+
+```javascript
+❌
+console.log(cat)
+
+const cat = "야옹"
+//error : ReferenceError
+👍
+const cat = "야옹"
+console.log(cat)
+
+// 출력 : 야옹
+```
+
+2. let 변수
+
+```javascript
+❌
+count;
+
+let count;
+
+count = 10;
+//error : ReferenceError
+👍
+let count;
+
+count; // => undefined
+
+count = 10;
+
+count; // => 10
+```
+
+3. class 구문
+
+```javascript
+❌
+const myCar = new cat('mimi')
+
+class cat {
+  constructor(name) {
+    this.name = name;
+  }
+
+}
+//error : ReferenceError
+👍
+class cat {
+  constructor(name) {
+    this.name = name;
+  }
+}
+const myCat = new cat('mimi')
+
+console.log(myCat.name) // => mimi
+```
+
+## TDZ의 영향을 받지 않는 구문
+
+- var, function( 함수 선언식 ), import
+
+```javascript
+// Works!
+value; // => undefined
+var value;
+// Works!
+hello("Shin"); // "Hello Shin :)"
+
+function hello(name) {
+  return `Hello ${name} :)`;
+}
+hello("Shin"); // "Hello Shin :)"
+```
 
 ## 스코프
 
 - 변수에 접근 할 수 있는 범위
 - 모든 식별자는 자신이 선언된 위치에 의해 다른 코드가 식별자 자신을 참조할 수 있는 유효 범위가 결정된다. 이를 스코프라고 한다.
-
-<br>
-
-### 스코프의 종류
-
-- 코드는 전역스코프와 지역스코프로 구분 할 수 있다.
-- 이 때 변수는 자신이 선언된 위치( 전역, 지역) 에 의해 자신이 유효한 범위인 스코프가 결정된다.
 
 <br>
 
@@ -20,10 +98,6 @@
 - 전역 변수는 어디서든지 참조 가능하다.
 
 ![IMG_0097](https://user-images.githubusercontent.com/98936928/185575227-17b73277-9408-41ed-b604-dc60dc147eff.jpg)
-
-<br>
-
-### 지역과 지역 스코프
 
 <br>
 
@@ -122,10 +196,16 @@ console.log(x); // 1
 
 ### 호이스팅
 
-- 코드가 실행하기 전 변수선언/ 함수선언 이 해당 스코프의 최상단으로 끌어 올려진 것 같은 현상
+- 코드가 실행하기 전 변수와 함수선언 이 해당 스코프의 최상단으로 끌어 올려진 것 같은 현상
 - JS 코드를 실행하기 전 실행 가능한 코드를 형상화 하고 구분하는 과정을 거친다.
 - 여기서 구분하는 과정은 실행 컨텍스트를 위한 과정
 - `실행 컨텍스트`는 실행 가능한 코드가 실행 되기 위한 필요한 환경을 의미
+
+### 호이스팅 순서
+
+1. 코드 실행 전, 변수와 함수의 선언 부분이 메모리에 먼저 할당
+2. 변수와 함수의 할당 부분은 아직 메모리에 할당되지 않으므로 undefined 값이 할당
+3. 코드가 실행 될 때, 할당된 값을 기준으로 변수와 함수가 실제로 사용
 
 <br>
 
