@@ -9,6 +9,8 @@
 - 컨테이너에 적용하는 속성과 아이템에 적용하는 속성이 있다.
 - 컨테이너에 dispaly : flex를 적용하면서 시작하게 되는데, 배치 방향설정 (flex-direction),줄 넘김 처리설정(flex-wrap)<br>
   메인축 방향 정렬(justify-content), 수직축 방향 정렬(align-items), 여러 행 정렬(align-content) 등이 있다.
+- Float를 설정하면 기존의 BFC의 동작을 무시하고 새로운 BFC를 생성
+- 기존의 BFC에 영향을 받지 않기 때문에 떠 있는 것 처럼 보여 속성 이름이 float가 되었다.
 
 ## 3. margin, padding, border의 영역은?
 
@@ -22,3 +24,8 @@
 - `inline` : 해당하는 영역을 차지하고 줄바꿈 없이 연속되어 배치됩니다.
 - `inline-block` : inline element 처럼 전후 줄바꿈 없이 한 줄에 다른 element 들과 나란히 배치됩니다. <br>
   하지만 inline element에서 불가능하던 width와 height 속성 지정 및 margin과 padding 속성의 상하 간격 지정이 가능해집니다.
+
+## 5. BFC?
+
+- 빈 문서를 생성할 시 비어있는 BFC를 가진 컨테이너가 발생하게 되고 블럭 요소를 부모의 너비 기준으로 줄 단위까지 끼워넣어 주게 된다.<br>
+  또한 다수의 블럭 요소가 들어오게 되면 offset top이 변하게 되는 이것들을 계산하여 배치하는 알고리즘이 BFC
