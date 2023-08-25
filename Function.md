@@ -61,14 +61,12 @@ var add = function (x, y) {
   변수는 선언부와 할당부를 나누어 호이스팅 하게 됩니다.
 
 
-
 3. function 생성자 함수
 
 var add = new Function("x", "y", "x+y");
 
 
-
-4. 화살표 함수 (ES6)
+4. 화살표 함수 (람다함수)
 
 var add = (x, y) => x + y;
 
@@ -90,6 +88,7 @@ var add = (x, y) => x + y;
 ### 6-1 익명함수와 선언적 함수의 차이
 
 ```익명함수``` 는 순차적인 코드 실행에서 코드가 해당 줄을 읽을 때 생성
+```익명함수``` 는 호이스팅 시 위로 올라가지 않고 익명 함수를 저장한 변수만 올라가게 된다.
 
 ```javascript
 let 익명함수
@@ -194,3 +193,56 @@ function 함수 () {
 
 - 상단 함수()의 결과는 ```선언적함수```를 호출하고
 - 하단 함수()의 결과는 함수가 함수라는 변수 자체를 덮어쓰기 때문에 익명함수라는 결과를 출력하게 된다.
+
+
+<br/>
+
+### 화살표 함수에서의 this
+```javasciprt
+target = 'global happy';
+
+function test(){
+	console.log(this.target);
+}
+
+const object = {
+	target: 'local happy',
+	action: test
+}
+
+
+object.action();
+// local happy
+```
+
+1. 첫 줄의 target은 전역 변수로 설정
+2. this가 object를 가리키므로, 상식적인 코드가 출력
+
+```javascript
+target = 'global hanpy';
+
+const test = () => {
+	console.log(this.target);
+}
+
+const object = {
+	target: 'local hanpy',
+	action: test
+}
+
+
+object.action();
+```
+
+1. 화살표 함수의 경우 내부의 this는 선언한 시점에서 호출
+2. target 변수는 전역 설정한 값들이 들어오게 된다.
+
+<br/>
+
+## 함수의 메모리 관점
+
+다시 실행이 불가능한 일회성 함수이기에 그 시점에서만 메모리를 차지하고 없어져 메모리 절약이 가능
+<br/>
+ex) 버튼 이벤트에 익명함수를 변수에 지정하여 사용했을 시 <br/>
+  일반 함수의 경우 참조값이 생겨 브라우저 ```힙``` 메모리에 하나만 저장되지만,<br/>
+  익명함수의 경우 매 새로운 메모리를 만들기 때문에 메모리 누수의 위험이 있다고 할 수 있다.
